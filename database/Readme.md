@@ -25,6 +25,8 @@ Initial Table Structure:
 ```
 (StudentID, StudentName, Email, ClubName, ClubRoom, ClubMentor, JoinDate)
 ```
+<img width="866" height="273" alt="image" src="https://github.com/user-attachments/assets/cafbad85-0a13-4374-9789-edcf7c839e22" />
+
 
 All student, club, and membership information is stored in one single table.
 
