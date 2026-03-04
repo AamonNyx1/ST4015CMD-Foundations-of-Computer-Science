@@ -18,7 +18,7 @@ The process divides one large table into smaller related tables.
 
 ---
 
-## 🗂 Database Schema – Unnormalized Form
+##  Database Schema – Unnormalized Form
 
 Initial Table Structure:
 
