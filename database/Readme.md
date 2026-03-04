@@ -1,4 +1,4 @@
-#  College Club Membership Management  
+    #  College Club Membership Management  
 ## Database Normalization 
 <img width="861" height="346" alt="image" src="https://github.com/user-attachments/assets/53fc6b80-02e6-438a-a156-af60cf6f43b9" />
 
@@ -160,8 +160,20 @@ CREATE TABLE Membership (
 ```sql
 SELECT * FROM Student;
 ```
+```
 
-+-----------+-------------+------------------+                                                                                                | StudentID | StudentName | Email            |                                                                                                +-----------+-------------+------------------+                                                                                               |         1 | Asha        | asha@email.com   |                                                                                                |         2 | Bikash      | bikash@email.com |                                                                                                |         3 | Nisha       | nisha@email.com  |                                                                                                |         4 | Rohan       | rohan@email.com  |                                                                                                |         5 | Suman       | suman@email.com  |                                                                                                |         6 | Pooja       | pooja@email.com  |                                                                                                |         7 | Aman        | aman@email.com   |                                                                                                +-----------+-------------+------------------+
++-----------+-------------+------------------+
+| StudentID | StudentName | Email            |
++-----------+-------------+------------------+
+|         1 | Asha        | asha@email.com   |
+|         2 | Bikash      | bikash@email.com |
+|         3 | Nisha       | nisha@email.com  |
+|         4 | Rohan       | rohan@email.com  |
+|         5 | Suman       | suman@email.com  |
+|         6 | Pooja       | pooja@email.com  |
+|         7 | Aman        | aman@email.com   |
++-----------+-------------+------------------+
+```
 
 ---
 
@@ -170,8 +182,8 @@ SELECT * FROM Student;
 ```sql
 SELECT * FROM Club;
 ```
+<img width="438" height="152" alt="image" src="https://github.com/user-attachments/assets/300fee82-4693-4fbf-8e24-ce0ead03a442" />
 
-+--------+-------------+----------+------------+                                                                                              | ClubID | ClubName    | ClubRoom | ClubMentor |                                                                                              +--------+-------------+----------+------------+                                                                                              |    101 | Music Club  | R101     | Mr. Raman  |                                                                                              |    202 | Sports Club | R202     | Ms. Sita   |                                                                                              |    303 | Drama Club  | R303     | Mr. Kiran  |                                                                                              |    401 | Coding Club | Lab1     | Mr. Anil   |                                                                                              +--------+-------------+----------+------------+  
 
 
 ---
@@ -182,7 +194,8 @@ SELECT * FROM Club;
 SELECT * FROM Membership;
 ```
 
-+--------------+-----------+--------+------------+                                                                                            | MembershipID | StudentID | ClubID | JoinDate   |                                                                                            +--------------+-----------+--------+------------+                                                                                            |            1 |         1 |    101 | 2024-01-10 |                                                                                            |            2 |         2 |    202 | 2024-01-12 |                                                                                            |            3 |         1 |    202 | 2024-01-15 |                                                                                            |            4 |         3 |    101 | 2024-01-20 |                                                                                            |            5 |         4 |    303 | 2024-01-18 |                                                                                            |            6 |         5 |    101 | 2024-01-22 |                                                                                            |            7 |         2 |    303 | 2024-01-25 |                                                                                            |            8 |         6 |    202 | 2024-01-27 |                                                                                            |            9 |         3 |    401 | 2024-01-28 |                                                                                            |           10 |         7 |    401 | 2024-01-30 |                                                                                            +--------------+-----------+--------+------------+  
+<img width="449" height="267" alt="image" src="https://github.com/user-attachments/assets/fc615f0c-ac31-4606-bcff-8663d479e9d6" />
+
 
 
 ---
