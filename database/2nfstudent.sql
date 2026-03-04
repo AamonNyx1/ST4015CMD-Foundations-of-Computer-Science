@@ -8,4 +8,5 @@
 |         5 | Suman       | suman@email.com  |  
 |         6 | Pooja       | pooja@email.com  |  
 |         7 | Aman        | aman@email.com   |   
-+-----------+-------------+------------------+                                                                                                     7 rows in set (0.00 sec)                
++-----------+-------------+------------------+    
+  7 rows in set (0.00 sec)                
