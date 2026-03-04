@@ -1,4 +1,4 @@
-# Creating database
+Creating database
 -- 1NF: One big table with atomic values
 CREATE TABLE ClubMembership_1NF (
     StudentID INT,
