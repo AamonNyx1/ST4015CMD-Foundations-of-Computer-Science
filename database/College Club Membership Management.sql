@@ -1,4 +1,7 @@
-Creating database
+-- Creating database
+create database college;
+-- using database
+use college;
 -- 1NF: One big table with atomic values
 CREATE TABLE ClubMembership_1NF (
     StudentID INT,
