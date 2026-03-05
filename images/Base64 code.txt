@@ -1,1 +1,126 @@
+#1st cmd
+C:\Windows\System32>docker network create blue
+88a0164681170c183d0efb51e47ddb47e5c7fd9ef35a107da0e49a797c5ab2b0
+C:\Windows\System32>docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+88a016468117   blue      bridge    local
+f213203440d1   bridge    bridge    local
+941c10dceb71   host      host      local
+012de8448a13   jello     bridge    local
+bbf63999cde7   mellow    bridge    local
+b9f0a0dcff67   none      null      local
+C:\Windows\System32>docker run -it --name server --network blue python:3.12-slim bash
+root@69b88d00bdaa:/# apt update
+Hit:1 http://deb.debian.org/debian trixie InRelease
+Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
+Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
+Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9670 kB]
+Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [5412 B]
+Get:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [108 kB]
+Fetched 9875 kB in 12s (840 kB/s)
+All packages are up to date.
+root@69b88d00bdaa:/# echo "This is secret data for Base64 Demo"> dem.txt
+root@69b88d00bdaa:/# ls
+bin      dev   lib    mnt   root  srv  usr
+boot     etc   lib64  opt   run   sys  var
+dem.txt  home  media  proc  sbin  tmp
+root@69b88d00bdaa:/# base64 dem.txt > encoded.txt
+root@69b88d00bdaa:/# cat encoded.txt
+VGhpcyBpcyBzZWNyZXQgZGF0YSBmb3IgQmFzZTY0IERlbW8K
+root@69b88d00bdaa:/# python -m http.server 8082
+Serving HTTP on 0.0.0.0 port 8082 (http://0.0.0.0:8082/) ...
+172.20.0.3 - - [05/Mar/2026 11:19:39] "GET /encoded.txt HTTP/1.1" 200 -
+172.20.0.3 - - [05/Mar/2026 11:21:03] "GET /encoded.txt HTTP/1.1" 200 -
+## 2nd cmd
+C:\Windows\System32>docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" server
+172.20.0.2
+## 3rd New cmd
+C:\Windows\System32>docker run -it --name client --network blue python:3.12-slim bash
+root@136cdf45a067:/# apt update
+Hit:1 http://deb.debian.org/debian trixie InRelease
+Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
+Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
+Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9670 kB]
+Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [5412 B]
+Get:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [108 kB]
+Fetched 9875 kB in 10s (1009 kB/s)
+All packages are up to date.
+root@136cdf45a067:/# apt install -y wget iputils-ping
+Installing:
+  iputils-ping  wget
 
+Installing dependencies:
+  libgnutls30t64  libpsl5t64     linux-sysctl-defaults
+  libidn2-0       libtasn1-6     publicsuffix
+  libp11-kit0     libunistring5
+
+Suggested packages:
+  gnutls-bin
+
+Summary:
+  Upgrading: 0, Installing: 10, Removing: 0, Not Upgrading: 0
+  Download size: 3924 kB
+  Space needed: 13.0 MB / 1010 GB available
+
+PING server (172.20.0.2) 56(84) bytes of data.
+64 bytes from server.blue (172.20.0.2): icmp_seq=1 ttl=64 time=0.105 ms
+64 bytes from server.blue (172.20.0.2): icmp_seq=2 ttl=64 time=0.080 ms
+64 bytes from server.blue (172.20.0.2): icmp_seq=3 ttl=64 time=0.072 ms
+64 bytes from server.blue (172.20.0.2): icmp_seq=4 ttl=64 time=0.071 ms
+64 bytes from server.blue (172.20.0.2): icmp_seq=5 ttl=64 time=0.081 ms
+64 bytes from server.blue (172.20.0.2): icmp_seq=6 ttl=64 time=0.075 ms
+64 bytes from server.blue (172.20.0.2): icmp_seq=7 ttl=64 time=0.112 ms
+64 bytes from server.blue (172.20.0.2): icmp_seq=8 ttl=64 time=0.076 ms
+64 bytes from server.blue (172.20.0.2): icmp_seq=9 ttl=64 time=0.075 ms
+64 bytes from server.blue (172.20.0.2): icmp_seq=10 ttl=64 time=0.075 ms
+64 bytes from server.blue (172.20.0.2): icmp_seq=11 ttl=64 time=0.088 ms
+64 bytes from server.blue (172.20.0.2): icmp_seq=12 ttl=64 time=0.079 ms
+--- server ping statistics ---
+12 packets transmitted, 12 received, 0% packet loss, time 11246ms
+rtt min/avg/max/mdev = 0.071/0.082/0.112/0.012 ms
+
+root@136cdf45a067:/# ping 172.20.0.2
+PING 172.20.0.2 (172.20.0.2) 56(84) bytes of data.
+64 bytes from 172.20.0.2: icmp_seq=1 ttl=64 time=0.073 ms
+64 bytes from 172.20.0.2: icmp_seq=2 ttl=64 time=0.082 ms
+64 bytes from 172.20.0.2: icmp_seq=3 ttl=64 time=0.082 ms
+64 bytes from 172.20.0.2: icmp_seq=4 ttl=64 time=0.113 ms
+64 bytes from 172.20.0.2: icmp_seq=5 ttl=64 time=0.073 ms
+64 bytes from 172.20.0.2: icmp_seq=6 ttl=64 time=0.082 ms
+64 bytes from 172.20.0.2: icmp_seq=7 ttl=64 time=0.087 ms
+64 bytes from 172.20.0.2: icmp_seq=8 ttl=64 time=0.074 ms
+--- 172.20.0.2 ping statistics ---
+40 packets transmitted, 40 received, 0% packet loss, time 39929ms
+rtt min/avg/max/mdev = 0.063/0.087/0.147/0.019 ms
+
+root@136cdf45a067:/# wget http://server:8082/encoded.txt
+--2026-03-05 11:19:39--  http://server:8082/encoded.txt
+Resolving server (server)... 172.20.0.2
+Connecting to server (server)|172.20.0.2|:8082... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 49 [text/plain]
+Saving to: ‘encoded.txt’
+
+encoded.txt       100%[=============>]      49  --.-KB/s    in 0s
+
+2026-03-05 11:19:39 (7.82 MB/s) - ‘encoded.txt’ saved [49/49]
+root@136cdf45a067:/# ls
+bin   dev          etc   lib    media  opt   root  sbin  sys  usr
+boot  encoded.txt  home  lib64  mnt    proc  run   srv   tmp  var
+root@136cdf45a067:/# wget http://172.20.0.2/encoded.txt
+--2026-03-05 11:20:36--  http://172.20.0.2/encoded.txt
+Connecting to 172.20.0.2:80... failed: Connection refused.
+root@136cdf45a067:/# wget http://172.20.0.2:8082/encoded.txt
+--2026-03-05 11:21:03--  http://172.20.0.2:8082/encoded.txt
+Connecting to 172.20.0.2:8082... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 49 [text/plain]
+Saving to: ‘encoded.txt.1’
+
+encoded.txt.1     100%[=============>]      49  --.-KB/s    in 0s
+
+2026-03-05 11:21:03 (10.4 MB/s) - ‘encoded.txt.1’ saved [49/49]
+
+root@136cdf45a067:/# base64 -d encoded.txt > decoded.txt
+root@136cdf45a067:/# cat decoded.txt
+This is secret data for Base64 Demo
