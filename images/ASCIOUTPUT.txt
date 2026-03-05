@@ -1,0 +1,8 @@
+PS C:\Users\Ripple\Desktop\foundation assignment> & C:/Users/Ripple/AppData/Local/Programs/Python/Python314/python.exe "c:/Users/Ripple/Desktop/foundation assignment/demo.py"
+Original Text:
+jello world
+----------------------------------------
+ASCII Encoded (bytes): b'jello world'
+ASCII Values: [106, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100]
+----------------------------------------
+ASCII Decoded: jello world
