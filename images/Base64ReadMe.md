@@ -137,7 +137,7 @@ ping 172.18.0.2
 
 ---
 
-# 📥 Step 11 – Download Encoded File (Client)
+#  Step 11 – Download Encoded File (Client)
 
 Using container name:
 
