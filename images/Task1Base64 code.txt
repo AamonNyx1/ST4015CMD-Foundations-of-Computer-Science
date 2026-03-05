@@ -1,4 +1,4 @@
-#1st cmd
+
 C:\Windows\System32>docker network create blue
 88a0164681170c183d0efb51e47ddb47e5c7fd9ef35a107da0e49a797c5ab2b0
 C:\Windows\System32>docker network ls
@@ -34,7 +34,6 @@ Serving HTTP on 0.0.0.0 port 8082 (http://0.0.0.0:8082/) ...
 ## 2nd cmd
 C:\Windows\System32>docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" server
 172.20.0.2
-## 3rd New cmd
 C:\Windows\System32>docker run -it --name client --network blue python:3.12-slim bash
 root@136cdf45a067:/# apt update
 Hit:1 http://deb.debian.org/debian trixie InRelease
