@@ -30,9 +30,7 @@ ascii_decoded = ascii_encoded.decode("ascii")
 print("ASCII Decoded:", ascii_decoded)
 ```
 Original Text:
-```
 jello world
-```
 ----------------------------------------
 ```
 ASCII Encoded (bytes): b'jello world'
@@ -41,6 +39,5 @@ ASCII Encoded (bytes): b'jello world'
 ASCII Values: [106, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100]
 ```
 ----------------------------------------
-```
 ASCII Decoded: jello world
-```
+
