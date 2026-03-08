@@ -439,3 +439,112 @@ Example ASCII values:
 ##  Learning Outcome
 
 This demonstration shows how characters are converted into numerical representations using ASCII encoding, which forms the basis for many data transmission and encoding techniques used in computing.
+
+
+##  Docker Container File Transfer Demonstration
+
+This section shows communication between two Docker containers (**server** and **client**) connected to the same Docker network.  
+The server hosts a file using Python's built-in HTTP server, and the client downloads it using `wget`.
+
+---
+
+###  Server Setup
+
+The server container creates a file and hosts it using Python HTTP server on port **8082**.
+
+```bash
+docker run -it --name server --network jello python:3.12-slim bash
+```
+
+Create the file:
+
+```bash
+echo "Jello world" > jello.txt
+```
+
+Start the web server:
+
+```bash
+python -m http.server 8082
+```
+
+The server starts listening at:
+
+```
+Serving HTTP on 0.0.0.0 port 8082 (http://0.0.0.0:8082/)
+```
+
+---
+
+###  Client Setup
+
+Run a client container in the same Docker network:
+
+```bash
+docker run -it --name client --network jello python:3.12-slim bash
+```
+
+Download the file from the server container:
+
+```bash
+wget http://server:8082/jello.txt
+```
+
+Check the downloaded file:
+
+```bash
+ls
+```
+
+---
+
+##  Client Container Output
+
+The client successfully downloads the file from the server container.
+
+![Client Download Output](images/docker_file_transfer_client.png)
+
+---
+
+##  Server Container Output
+
+The server logs show incoming requests from the client container.
+
+![Server HTTP Log](images/docker_file_transfer_server.png)
+
+---
+
+##  Possible Issue Encountered
+
+When trying to use **HTTPS**:
+
+```bash
+wget https://server:8082/jello.txt
+```
+
+The following error occurred:
+
+```
+GnuTLS: An unexpected TLS packet was received.
+Unable to establish SSL connection.
+```
+
+###  Reason
+
+The Python HTTP server only supports **HTTP**, not **HTTPS**.
+
+### Solution
+
+Use HTTP instead:
+
+```bash
+wget http://server:8082/jello.txt
+```
+
+---
+
+##  Result
+
+- Two containers communicate using Docker networking
+- File successfully transferred between containers
+- Demonstrates service discovery using container name (`server`)
