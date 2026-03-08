@@ -359,3 +359,83 @@ SELECT * FROM Club;
 
 The database was successfully transformed from a single unstructured table (1NF) into a fully normalised relational schema (3NF).  
 The final structure eliminates redundancy, ensures data integrity, and supports scalable database design.
+
+# ASCII Encoding Demonstration (Python)
+
+##  Overview
+
+This section demonstrates how ASCII encoding works using Python.  
+ASCII (American Standard Code for Information Interchange) converts characters into numeric byte values that computers can process.
+
+The example below shows:
+
+- Converting text into ASCII bytes
+- Viewing the numeric ASCII values
+- Decoding the ASCII bytes back to the original text
+
+---
+
+##  Python ASCII Demonstration
+
+```python
+# ASCII code demonstration
+
+text = "jello world"
+
+print("Original Text:")
+print(text)
+print("-" * 40)
+
+ascii_encoded = text.encode("ascii")
+print("ASCII Encoded (bytes):", ascii_encoded)
+
+ascii_numbers = list(ascii_encoded)
+print("ASCII Values:", ascii_numbers)
+
+print("-" * 40)
+
+ascii_decoded = ascii_encoded.decode("ascii")
+print("ASCII Decoded:", ascii_decoded)
+```
+
+---
+
+##  Example Output
+
+```
+Original Text:
+jello world
+----------------------------------------
+ASCII Encoded (bytes): b'jello world'
+ASCII Values: [106, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100]
+----------------------------------------
+ASCII Decoded: jello world
+```
+
+---
+
+##  Explanation
+
+1. The string `"jello world"` is the original text.
+2. `encode("ascii")` converts the string into ASCII byte format.
+3. Each character is represented by a numeric ASCII value.
+4. `decode("ascii")` converts the encoded bytes back into readable text.
+
+Example ASCII values:
+
+| Character | ASCII Value |
+|-----------|-------------|
+| j | 106 |
+| e | 101 |
+| l | 108 |
+| o | 111 |
+| space | 32 |
+| w | 119 |
+| r | 114 |
+| d | 100 |
+
+---
+
+##  Learning Outcome
+
+This demonstration shows how characters are converted into numerical representations using ASCII encoding, which forms the basis for many data transmission and encoding techniques used in computing.
