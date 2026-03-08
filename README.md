@@ -86,7 +86,7 @@ docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" ser
 Example output:
 
 ```
-172.18.0.2
+172.20.0.2
 ```
 
 ---
