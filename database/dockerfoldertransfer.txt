@@ -1,0 +1,138 @@
+##  Docker Container File Transfer Demonstration
+
+This section shows communication between two Docker containers (**server** and **client**) connected to the same Docker network.  
+The server hosts a file using Python's built-in HTTP server, and the client downloads it using `wget`.
+
+---
+
+###  Server Setup
+
+The server container creates a file and hosts it using Python HTTP server on port **8082**.
+
+```bash
+docker run -it --name server --network jello python:3.12-slim bash
+```
+
+Create the file:
+
+```bash
+echo "Jello world" > jello.txt
+```
+
+Start the web server:
+
+```bash
+python -m http.server 8082
+```
+
+The server starts listening at:
+
+```
+Serving HTTP on 0.0.0.0 port 8082 (http://0.0.0.0:8082/)
+```
+
+---
+
+###  Client Setup
+
+Run a client container in the same Docker network:
+
+```bash
+docker run -it --name client --network jello python:3.12-slim bash
+```
+
+Download the file from the server container:
+
+```bash
+wget http://server:8082/jello.txt
+```
+
+Check the downloaded file:
+
+```bash
+ls
+```
+
+---
+
+##  Client Container Output
+
+The client successfully downloads the file from the server container.
+
+```bash
+root@4535f4fce0cb:/# wget https://server:8082/jello.txt
+Resolving server (server)... 172.18.0.2
+Connecting to server (server)|172.18.0.2|:8082... connected.
+GnuTLS: An unexpected TLS packet was received.
+Unable to establish SSL connection.
+
+root@4535f4fce0cb:/# wget http://server:8082/jello.txt
+--2026-03-04 12:15:49--  http://server:8082/jello.txt
+Resolving server (server)... 172.18.0.2
+Connecting to server (server)|172.18.0.2|:8082... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 12 [text/plain]
+Saving to: 'jello.txt'
+
+jello.txt 100%[==============================>] 12 --.-KB/s in 0s
+
+2026-03-04 12:15:49 (2.27 MB/s) - 'jello.txt' saved [12/12]
+
+root@4535f4fce0cb:/# ls
+bin boot dev etc home jello.txt lib lib64 media mnt opt proc root run sbin srv sys tmp usr var
+```
+
+---
+
+##  Server Container Output
+
+The server logs show incoming requests from the client container.
+
+```bash
+C:\Windows\System32> docker run -it --name server --network jello python:3.12-slim bash
+
+root@502364f681ed:/# echo "Jello world" > jello.txt
+root@502364f681ed:/# python -m http.server 8082
+
+Serving HTTP on 0.0.0.0 port 8082 (http://0.0.0.0:8082/) ...
+
+172.18.0.3 - - [04/Mar/2026 12:13:46] code 400, message Bad request version
+172.18.0.3 - - [04/Mar/2026 12:15:49] "GET /jello.txt HTTP/1.1" 200 -
+```
+
+---
+
+##  Possible Issue Encountered
+
+When trying to use **HTTPS**:
+
+```bash
+wget https://server:8082/jello.txt
+```
+
+The following error occurred:
+
+```
+GnuTLS: An unexpected TLS packet was received.
+Unable to establish SSL connection.
+```
+
+###  Reason
+
+The Python HTTP server only supports **HTTP**, not **HTTPS**.
+
+###  Solution
+
+Use HTTP instead:
+
+```bash
+wget http://server:8082/jello.txt
+```
+
+---
+
+##  Result
+
+- Two containers communicate using Docker networking
+- File successfully transferred between containers
+- Demonstrates service discovery using container name (`server`)
