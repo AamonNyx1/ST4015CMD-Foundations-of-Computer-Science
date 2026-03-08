@@ -502,7 +502,8 @@ ls
 
 The client successfully downloads the file from the server container.
 
-![Client Download Output](images/docker_file_transfer_client.png)
+<img width="1121" height="433" alt="task1 docker file transfer" src="https://github.com/user-attachments/assets/ba641dd8-aeed-4901-b821-32f398e6b776" />
+
 
 ---
 
@@ -510,7 +511,8 @@ The client successfully downloads the file from the server container.
 
 The server logs show incoming requests from the client container.
 
-![Server HTTP Log](images/docker_file_transfer_server.png)
+<img width="1919" height="405" alt="docker file transfer" src="https://github.com/user-attachments/assets/5cb6aa16-3426-4915-92b9-956aa901dd7d" />
+
 
 ---
 
