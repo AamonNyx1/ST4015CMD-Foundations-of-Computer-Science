@@ -761,7 +761,6 @@ INSERT INTO Club VALUES (502, 'Hacking Club', 'R669', 'Ms. Sia');
 
 # References
 
-- Docker Documentation — https://docs.docker.com/
 - Python Documentation — https://docs.python.org/3/
 - MySQL Documentation — https://dev.mysql.com/doc/
 - Base64 Encoding — https://en.wikipedia.org/wiki/Base64
