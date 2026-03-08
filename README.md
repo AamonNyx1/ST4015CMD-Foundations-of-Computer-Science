@@ -145,7 +145,7 @@ wget http://server:8082/encoded.txt
 Using IP:
 
 ```bash
-wget http://172.18.0.2:8082/encoded.txt
+wget http://172.20.0.2:8082/encoded.txt
 ```
 
 ---
