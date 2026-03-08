@@ -548,3 +548,218 @@ wget http://server:8082/jello.txt
 - Two containers communicate using Docker networking
 - File successfully transferred between containers
 - Demonstrates service discovery using container name (`server`)
+
+# Foundation of Computer Science Tasks
+
+This repository contains demonstrations of:
+
+- ASCII Encoding (Python)
+- Base64 Encoding
+- Docker Container Networking & File Transfer
+- Database Normalization (1NF → 3NF)
+
+---
+
+# Task 1 — ASCII Encoding (Python)
+
+## Code
+
+```python
+text = "jello world"
+
+print("Original Text:")
+print(text)
+
+ascii_encoded = text.encode("ascii")
+print("ASCII Encoded:", ascii_encoded)
+
+ascii_numbers = list(ascii_encoded)
+print("ASCII Values:", ascii_numbers)
+
+ascii_decoded = ascii_encoded.decode("ascii")
+print("ASCII Decoded:", ascii_decoded)
+```
+
+---
+
+# Task 1 — Base64 Encoding (Docker)
+
+## Create File
+
+```bash
+echo "This is secret data for Base64 Demo" > dem.txt
+```
+
+## Encode File
+
+```bash
+base64 dem.txt
+```
+
+## Decode File
+
+```bash
+base64 -d encoded.txt
+```
+
+---
+
+# Task 1 — Docker Networking & File Transfer
+
+## Create Network
+
+```bash
+docker network create jello
+```
+
+---
+
+## Start Server Container
+
+```bash
+docker run -it --name server --network jello python:3.12-slim bash
+```
+
+Create file:
+
+```bash
+echo "Jello world" > jello.txt
+```
+
+Start HTTP server:
+
+```bash
+python -m http.server 8082
+```
+
+Check IP:
+
+```bash
+hostname -i
+```
+
+---
+
+## Start Client Container
+
+```bash
+docker run -it --name client --network jello python:3.12-slim bash
+```
+
+Download file from server:
+
+```bash
+wget http://server:8082/jello.txt
+```
+
+Check file:
+
+```bash
+ls
+```
+
+---
+
+# Task 3 — Database Normalization
+
+## 1NF Table
+
+```sql
+CREATE TABLE ClubMembership_1NF (
+    StudentID INT,
+    StudentName VARCHAR(50),
+    Email VARCHAR(50),
+    ClubName VARCHAR(50),
+    ClubRoom VARCHAR(50),
+    ClubMentor VARCHAR(50),
+    JoinDate DATE,
+    PRIMARY KEY (StudentID, ClubName, JoinDate)
+);
+```
+
+---
+
+## Student Table
+
+```sql
+CREATE TABLE Student (
+    StudentID INT PRIMARY KEY,
+    StudentName VARCHAR(50),
+    Email VARCHAR(50)
+);
+```
+
+---
+
+## Club Table
+
+```sql
+CREATE TABLE Club (
+    ClubID INT PRIMARY KEY,
+    ClubName VARCHAR(50),
+    ClubRoom VARCHAR(50),
+    ClubMentor VARCHAR(50)
+);
+```
+
+---
+
+## Membership Table
+
+```sql
+CREATE TABLE Membership (
+    MembershipID INT PRIMARY KEY AUTO_INCREMENT,
+    StudentID INT,
+    ClubID INT,
+    JoinDate DATE,
+    FOREIGN KEY (StudentID) REFERENCES Student(StudentID),
+    FOREIGN KEY (ClubID) REFERENCES Club(ClubID)
+);
+```
+
+---
+
+## 3NF Table
+
+```sql
+CREATE TABLE StudentClub_3NF (
+    StudentClubID INT PRIMARY KEY AUTO_INCREMENT,
+    StudentID INT,
+    ClubID INT,
+    JoinDate DATE,
+    FOREIGN KEY (StudentID) REFERENCES Student(StudentID),
+    FOREIGN KEY (ClubID) REFERENCES Club(ClubID)
+);
+```
+
+---
+
+## Query Data
+
+```sql
+SELECT s.StudentName, c.ClubName, sc.JoinDate
+FROM StudentClub_3NF sc
+JOIN Student s ON sc.StudentID = s.StudentID
+JOIN Club c ON sc.ClubID = c.ClubID;
+```
+
+---
+
+## Insert Sample Data
+
+```sql
+INSERT INTO Student VALUES (8, 'Srijan', 'srijan@email.com');
+INSERT INTO Student VALUES (9, 'mello', 'mello@email.com');
+
+INSERT INTO Club VALUES (501, 'Hacking Club', 'R699', 'Ms. Piya');
+INSERT INTO Club VALUES (502, 'Hacking Club', 'R669', 'Ms. Sia');
+```
+
+---
+
+# References
+
+- Docker Documentation — https://docs.docker.com/
+- Python Documentation — https://docs.python.org/3/
+- MySQL Documentation — https://dev.mysql.com/doc/
+- Base64 Encoding — https://en.wikipedia.org/wiki/Base64
